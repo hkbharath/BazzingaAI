@@ -21,23 +21,23 @@ class Board(object):
 
   def rotateLeft(self, grid):
     out = self.emptyGrid()
-    for c in range(4):
-      for r in range(4):
-        out[r][3-c] = grid[c][r]
+    for c in range(N):
+      for r in range(N):
+        out[r][N-1-c] = grid[c][r]
     return out
 
   def rotateRight(self, grid):
     out = self.emptyGrid()
-    for c in range(4):
-      for r in range(4):
-        out[3-r][c] = grid[c][r]
+    for c in range(N):
+      for r in range(N):
+        out[N-1-r][c] = grid[c][r]
     return out
 
   def emptyGrid(self):
     out = list()
-    for x in range(4):
+    for x in range(N):
       col = list()
-      for y in range(4):
+      for y in range(N):
         col.append(None)
       out.append(col)
     return out
@@ -59,10 +59,10 @@ class Board(object):
       grid = self.rotateLeft(grid)
 
     score = 0
-    for r in range(4):
+    for r in range(N):
       oc = 0
       ic = 0
-      while ic < 4:
+      while ic < N:
         if grid[ic][r] is None:
           ic += 1
           continue
@@ -72,10 +72,10 @@ class Board(object):
 
       ic = 0
       oc = 0
-      while ic < 4:
+      while ic < N:
         if out[ic][r] is None:
           break
-        if ic == 3:
+        if ic == N-1:
           out[oc][r] = out[ic][r]
           oc += 1
           break
@@ -88,7 +88,7 @@ class Board(object):
           out[oc][r] = out[ic][r]
         ic += 1
         oc += 1
-      while oc < 4:
+      while oc < N:
         out[oc][r] = None
         oc += 1
 
