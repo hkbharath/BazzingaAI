@@ -19,7 +19,8 @@ def run():
         st = time.time()
         # Measure time taken to decide and make a move
 
-        move = random.choice(game.getAvailableMoves())
+        # move = random.choice(game.getAvailableMoves())
+        move = game.getAvailableMoves()[0]
         game.makeMove(move)
 
         #end timer
@@ -40,5 +41,6 @@ if __name__ == "__main__":
         T = T-1
     print("Final Analysis:")
     print("Mean Score: %.3f"%(mean(t_scores)))
+    print("Max Score: %d"%(max(t_scores)))
     print("Std Deviation of Scores: %.3f"%(stdev(t_scores)))
     print("Average Time taken per move(sec): %.4f"%(mean(ex_times)))

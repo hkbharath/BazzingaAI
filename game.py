@@ -124,7 +124,7 @@ class Board(object):
     moves = []
     if self.over:
       return moves
-    for move in [Moves.MOVE_LEFT, Moves.MOVE_RIGHT, Moves.MOVE_UP, Moves.MOVE_DOWN]:
+    for move in [Moves.MOVE_LEFT, Moves.MOVE_DOWN, Moves.MOVE_RIGHT, Moves.MOVE_UP]:
       if self.canMove(move):
         moves.append(move)
     return moves
