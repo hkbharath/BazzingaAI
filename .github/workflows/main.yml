@@ -1,6 +1,6 @@
 name: Add Results to Bucket
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
