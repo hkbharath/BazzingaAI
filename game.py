@@ -234,3 +234,7 @@ class GameManager():
 
   def getGameTracker(self):
     return self.board.gt
+
+  def getNoOfEmptyCells(self):
+    return len(list(self.board.get_empty_cells()))
+    
