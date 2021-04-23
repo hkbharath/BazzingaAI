@@ -3,6 +3,7 @@
 
 import random
 import sys
+import time
 
 # board size
 N = 4
@@ -13,11 +14,37 @@ class Moves:
   MOVE_RIGHT = 'right'
   MOVE_DOWN = 'down'
 
+class GameTracker:
+  def __init__(self):
+    self.no_moves = 0
+    self.st_time = time.time()
+    self.end_time = 0
+    self.max_tile = 2
+    self.score = 0
+
+  def getTimePerMove(self):
+    return (self.end_time - self.st_time)/self.no_moves
+
+  def getMaxTile(self):
+    return self.max_tile
+  
+  def getNoOfMoves(self):
+    return self.no_moves
+
+  def getScore(self):
+    return self.score
+
 class Board(object):
   def __init__(self):
+    self.gt = GameTracker()
     self.board = [[None] * N for i in range(N)]
-    self.score = 0
+    self.gt.score = 0
     self.over = False
+
+  #Would be needed for Deep RL
+  def startGame():
+    if self.gt.score == 0 and not self.over:
+      self.gt = GameTracker()
 
   def rotateLeft(self, grid):
     out = self.emptyGrid()
@@ -83,6 +110,8 @@ class Board(object):
           #out[oc][r] *= 2
           out[oc][r] = 2*out[ic][r]
           score += out[oc][r]
+          if self.gt.max_tile < out[oc][r]:
+            self.gt.max_tile = out[oc][r]
           ic += 1
         else:
           out[oc][r] = out[ic][r]
@@ -103,11 +132,13 @@ class Board(object):
     moved = (next_board != self.board)
 
     self.board = next_board
-    self.score += got_score
+    self.gt.score += got_score
 
     if moved:
+      self.gt.no_moves = self.gt.no_moves + 1
       if not self.randomTile() or len(self.get_next_moves()) == 0:
         self.over = True
+        self.gt.end_time = time.time()
 
   def canMove(self, direction, grid=None):
     if not grid:
@@ -165,7 +196,7 @@ class GameManager():
     return self.board.board
 
   def getScore(self):
-    return self.board.score
+    return self.board.gt.score
 
   def isOver(self):
     return self.board.over
@@ -186,3 +217,6 @@ class GameManager():
     
   def printState(self):
     self.board.show()
+
+  def getGameTracker(self):
+    return self.board.gt
