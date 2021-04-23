@@ -55,6 +55,11 @@ class Board(object):
     if self.gt.score == 0 and not self.over:
       self.gt = GameTracker()
 
+  #Would be needed for Deep RL
+  def startGame():
+    if self.gt.score == 0 and not self.over:
+      self.gt = GameTracker()
+
   def rotateLeft(self, grid):
     out = self.emptyGrid()
     for c in range(N):
