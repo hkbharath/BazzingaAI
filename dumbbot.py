@@ -10,24 +10,42 @@ import time
 
 T=100
 
+def simulation(grid):
+    # Start game from intermediate state
+    sim_game = GameManager(grid)
+
+    while not sim_game.isOver():
+        # Implement your logic of selecting a move
+        move = random.choice(sim_game.getAvailableMoves())
+
+        sim_game.makeMove(move)
+
+    gt = sim_game.getGameTracker()
+    # print("Simulation from selected state")
+    # print("Final Score: %d"%(sim_game.getScore()))
+    # print("Max Tile: %d"%(gt.getMaxTile()))
+    # print("No. Of Moves: %d"%(gt.getNoOfMoves()))
+    # print("Time per  move: %0.5f"%(gt.getTimePerMove()))
+    return gt
+
 def run():
     game = GameManager()
-    step_time = []
+    gt = game.getGameTracker()
+    is_simulation = (random.randint(0,10) == 0)
+
     while not game.isOver():
         # print(game.getAvailableMoves())
         
-        st = time.time()
-        # Measure time taken to decide and make a move
-
         # Implement your logic of selecting a move
         move = game.getAvailableMoves()[0]
 
-        game.makeMove(move)
-        #end timer
-        et = time.time()
-        step_time.append(et-st)
+        # Try Simulation
+        if gt.getScore() > 100 and is_simulation:
+            try_grid, score = game.tryMove(game.getCurrentState(), move)
+            return simulation(try_grid)
 
-    gt = game.getGameTracker()
+        game.makeMove(move)
+
     # print("Final Score: %d"%(game.getScore()))
     # print("Max Tile: %d"%(gt.getMaxTile()))
     # print("No. Of Moves: %d"%(gt.getNoOfMoves()))

@@ -36,19 +36,21 @@ class GameTracker:
 
 class Board(object):
   def __init__(self, grid=None):
+    
+    self.over = False
+    self.gt = GameTracker()
+
     if grid:
-      self.board = gird
-      self.is_custom_board = True  
+      self.board = grid
+      self.is_custom_board = True 
+      # check if the game is already over
+      if len(self.get_next_moves()) == 0:
+        self.over = True 
     else:
       self.board = [[None] * N for i in range(N)]
       self.is_custom_board = False
-    
-    self.randomTile()
-    self.randomTile()
-    
-    self.score = 0
-    self.over = (len(self.get_next_moves()) == 0)
-
+      self.randomTile()
+      self.randomTile()
 
   #Would be needed for Deep RL
   def startGame():
@@ -201,8 +203,8 @@ class Board(object):
       print("")
 
 class GameManager():
-  def __init__(self):
-    self.board = Board()
+  def __init__(self, grid = None):
+    self.board = Board(grid)
 
   def getCurrentState(self):
     return self.board.board
@@ -222,8 +224,8 @@ class GameManager():
     self.board.move(direction)
     return True
   
-  def tryMove(self, gird, direction):
-    if not self.board.canMove(direction, gird=grid):
+  def tryMove(self, grid, direction):
+    if not self.board.canMove(direction, grid=grid):
       return grid, 0
     return self.board.to_move(grid, direction)
     
