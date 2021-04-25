@@ -39,6 +39,7 @@ class Board(object):
     
     self.over = False
     self.gt = GameTracker()
+    self.enableRandomTile = True
 
     if grid:
       self.board = grid
@@ -177,6 +178,8 @@ class Board(object):
     return moves
 
   def randomTile(self):
+    if not self.enableRandomTile:
+      return True
     cells = list(self.get_empty_cells())
     if not cells:
       return False
@@ -192,6 +195,9 @@ class Board(object):
     #print cid
     self.board[cid[0]][cid[1]] = v
     return True
+
+  def enableRandomTile(rtile):
+    self.enableRandomTile = rtile
 
   def show(self):
     for i in range(N):
@@ -237,4 +243,8 @@ class GameManager():
 
   def getNoOfEmptyCells(self):
     return len(list(self.board.get_empty_cells()))
+  
+  def getEmptyCells(self):
+    return list(self.board.get_empty_cells())
+  
     
