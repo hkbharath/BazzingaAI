@@ -3,6 +3,7 @@
 
 import random
 import sys
+import time
 
 # board size
 N = 4
@@ -13,11 +14,54 @@ class Moves:
   MOVE_RIGHT = 'right'
   MOVE_DOWN = 'down'
 
-class Board(object):
+class GameTracker:
   def __init__(self):
-    self.board = [[None] * N for i in range(N)]
+    self.no_moves = 0
+    self.st_time = time.time()
+    self.end_time = 0
+    self.max_tile = 2
     self.score = 0
+
+  def getTimePerMove(self):
+    return (self.end_time - self.st_time)/self.no_moves
+
+  def getMaxTile(self):
+    return self.max_tile
+  
+  def getNoOfMoves(self):
+    return self.no_moves
+
+  def getScore(self):
+    return self.score
+
+class Board(object):
+  def __init__(self, grid=None):
+    
     self.over = False
+    self.gt = GameTracker()
+    self.enableRandomTile = True
+
+    if grid:
+      self.board = grid
+      self.is_custom_board = True 
+      # check if the game is already over
+      if len(self.get_next_moves()) == 0:
+        self.over = True 
+    else:
+      self.board = [[None] * N for i in range(N)]
+      self.is_custom_board = False
+      self.randomTile()
+      self.randomTile()
+
+  #Would be needed for Deep RL
+  def startGame():
+    if self.gt.score == 0 and not self.over:
+      self.gt = GameTracker()
+
+  #Would be needed for Deep RL
+  def startGame():
+    if self.gt.score == 0 and not self.over:
+      self.gt = GameTracker()
 
   def rotateLeft(self, grid):
     out = self.emptyGrid()
@@ -83,6 +127,8 @@ class Board(object):
           #out[oc][r] *= 2
           out[oc][r] = 2*out[ic][r]
           score += out[oc][r]
+          if self.gt.max_tile < out[oc][r]:
+            self.gt.max_tile = out[oc][r]
           ic += 1
         else:
           out[oc][r] = out[ic][r]
@@ -103,11 +149,13 @@ class Board(object):
     moved = (next_board != self.board)
 
     self.board = next_board
-    self.score += got_score
+    self.gt.score += got_score
 
     if moved:
+      self.gt.no_moves = self.gt.no_moves + 1
       if not self.randomTile() or len(self.get_next_moves()) == 0:
         self.over = True
+        self.gt.end_time = time.time()
 
   def canMove(self, direction, grid=None):
     if not grid:
@@ -130,6 +178,8 @@ class Board(object):
     return moves
 
   def randomTile(self):
+    if not self.enableRandomTile:
+      return True
     cells = list(self.get_empty_cells())
     if not cells:
       return False
@@ -146,6 +196,9 @@ class Board(object):
     self.board[cid[0]][cid[1]] = v
     return True
 
+  def enableRandomTile(rtile):
+    self.enableRandomTile = rtile
+
   def show(self):
     for i in range(N):
       for j in range(N):
@@ -156,16 +209,14 @@ class Board(object):
       print("")
 
 class GameManager():
-  def __init__(self):
-    self.board = Board()
-    self.board.randomTile()
-    self.board.randomTile()
+  def __init__(self, grid = None):
+    self.board = Board(grid)
 
   def getCurrentState(self):
     return self.board.board
 
   def getScore(self):
-    return self.board.score
+    return self.board.gt.score
 
   def isOver(self):
     return self.board.over
@@ -179,10 +230,21 @@ class GameManager():
     self.board.move(direction)
     return True
   
-  def tryMove(self, gird, direction):
-    if not self.board.canMove(direction, gird=grid):
+  def tryMove(self, grid, direction):
+    if not self.board.canMove(direction, grid=grid):
       return grid, 0
     return self.board.to_move(grid, direction)
     
   def printState(self):
     self.board.show()
+
+  def getGameTracker(self):
+    return self.board.gt
+
+  def getNoOfEmptyCells(self):
+    return len(list(self.board.get_empty_cells()))
+  
+  def getEmptyCells(self):
+    return list(self.board.get_empty_cells())
+  
+    
