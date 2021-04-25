@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  deploy:
+  dumbbot:
     runs-on: ubuntu-latest
     
     steps:
@@ -22,5 +22,25 @@ jobs:
         AWS_REGION: 'eu-west-1'
         S3_BUCKET: '2048-ai-results'
         S3_KEY: 'dubmbot.txt'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  expectimax:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Run Dumb bot
+      run: python ./expectimax.py > expectimax.txt
+      
+    - name: Upload file to bucket
+      uses: zdurham/s3-upload-github-action@master
+      with:
+       args: --acl public-read
+      env:
+        FILE: ./expectimax.txt
+        AWS_REGION: 'eu-west-1'
+        S3_BUCKET: '2048-ai-results'
+        S3_KEY: 'expectimax.txt'
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
