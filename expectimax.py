@@ -9,7 +9,7 @@ from statistics import mean, variance, stdev, mode
 import time
 import sys
 
-T=2
+T=10
 
 def simulation_random_move(sim_gm, depth, h_score):
     tot_score = 0
@@ -55,7 +55,7 @@ def expectimax(grid, depth, is_random, h_score):
 def run():
     game = GameManager()
     gt = game.getGameTracker()
-    depth = 4
+    depth = 16
 
     while not game.isOver():
     
