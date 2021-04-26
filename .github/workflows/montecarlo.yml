@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'Monte_Carlo.py'
 jobs:
   MonteCarlo:
     runs-on: ubuntu-latest
