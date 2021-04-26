@@ -4,6 +4,7 @@
 import random
 import sys
 import time
+import math
 
 # board size
 N = 4
@@ -201,11 +202,12 @@ class Board(object):
 
   def show(self):
     for i in range(N):
+      print ('|', end='')
       for j in range(N):
         if self.board[j][i]:
-          print ('%4d' % self.board[j][i]),
+          print (' %4d |' % self.board[j][i], end='')
         else:
-          print ('   .'),
+          print ('    . |', end='')
       print("")
 
 class GameManager():
@@ -247,4 +249,137 @@ class GameManager():
   def getEmptyCells(self):
     return list(self.board.get_empty_cells())
   
+  def evalSmoothness(self, grid=None):
+    if grid is None:
+      grid = self.board.board
+    score_smooth = 0
+    N = len(grid)
+    for x in range(N-1):
+        for y in range(N-1):
+            s = 0
+            # s += abs((grid[x][y] or 2) - (grid[x+1][y] or 2))
+            # s += abs((grid[x][y] or 2) - (grid[x][y+1] or 2))
+            if grid[x][y] and grid[x+1][y]:
+              s += abs((math.log(grid[x][y])/math.log(2)) - (math.log(grid[x+1][y])/math.log(2)))
+            if grid[x][y] and grid[x][y+1]:
+              s += abs((math.log(grid[x][y])/math.log(2)) - (math.log(grid[x][y+1])/math.log(2)))
+            score_smooth -= s
+    return score_smooth
+  
+  def evalFreeCells(self, grid=None):
+    if grid is None:
+      grid = self.board.board
+
+    empty_count = 0
+
+    for row in grid:
+      # one of them will be there
+      empty_count += row.count(None)
+      empty_count += row.count(0)
+    
+    # print(empty_count)
+    # print(grid)
+    # return (16-empty_count)**2
+    if empty_count == 0:
+      return 0
+    return math.log(empty_count)
+  
+  def evalMaxTile(self, grid=None):
+    if grid is None:
+      grid = self.board.board
+    
+    return max([0 if tile is None else tile for row in grid for tile in row])
+
+
+  def evalMonotone(self, grid=None):
+    if grid is None:
+      grid = self.board.board
+    
+    for x in range(N):
+      for y in range(N):
+        if grid[x][y] is None:
+          grid[x][y] = 0
+
+    L = R = U = D = 0
+    LR = UD = 0
+    for x in range(N):
+      m = 0
+      for y in range(N-1):
+        if grid[x][y] and grid[x][y] >= grid[x][y+1]:
+          m += 1
+          L += m ** 2 * 4
+        else:
+          L -= abs((grid[x][y] or 0)- (grid[x][y+1] or 0)) * m ** 2
+          m = 0
+
+      m = 0
+      for y in range(N-1):
+        if grid[x][y] <= grid[x][y+1] and grid[x][y+1]:
+          m += 1
+          R += m ** 2 * 4
+        else:
+          R -= abs((grid[x][y] or 0)- (grid[x][y+1] or 0)) * m ** 2
+          m = 0
+
+    LR += min(L, R)
+    L = R = 0
+
+    for y in range(N):
+      m = 0
+      for x in range(N-1):
+        if grid[x][y] and grid[x][y] >= grid[x+1][y]:
+          m += 1
+        else:
+          #U -= abs(to_idx[grid[x][y]] - to_idx[grid[x+1][y]]) ** 2
+          U -= abs((grid[x][y] or 0)- (grid[x+1][y] or 0)) * m ** 2
+          m = 0
+
+      m = 0
+      for x in range(N-1):
+        if grid[x][y] <= grid[x+1][y] and grid[x+1][y]:
+          m += 1
+          D += m ** 2 * 4
+        else:
+          D -= abs((grid[x][y] or 0)- (grid[x+1][y] or 0)) * m ** 2
+          m = 0
+
+    UD += min(U, D)
+
+    return LR + UD
+
+  def evalMonotone_simple(self, grid=None):
+    if grid is None:
+      grid = self.board.board
+    
+    for x in range(N):
+      for y in range(N):
+        if grid[x][y] is None:
+          grid[x][y] = 0
+
+    L = R = U = D = 0
+    LR = UD = 0
+    for x in range(N):
+      for y in range(N-1):
+        cval = math.log(grid[x][y])/math.log(2) if grid[x][y] else 0
+        nval = math.log(grid[x][y+1])/math.log(2) if grid[x][y+1] else 0
+        if cval > nval:
+          L +=  nval - cval
+        else:
+          R += cval - nval
+
+    LR = max(L, R)
+    L = R = 0
+
+    for y in range(N):
+      for x in range(N-1):
+        cval = math.log(grid[x][y])/math.log(2) if grid[x][y] else 0
+        nval = math.log(grid[x+1][y])/math.log(2) if grid[x+1][y] else 0
+        if cval > nval:
+          U += nval - cval
+        else:
+          D += cval - nval
+      
+    UD = max(U, D)
+
+    return (LR + UD)
     
