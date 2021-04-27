@@ -10,7 +10,7 @@ import time
 T=10
 
 def simulation( grid, start_move):
-    iteration=10
+    iteration=100
     score_list = []
 
     while iteration > 0:
@@ -44,9 +44,8 @@ def run():
             # print("Move %s: %d"%(game_move, cscore))
         game.makeMove(max_move)
         # print(max_move)
-        # game.printState()
-        # print(" ")
-        #time.sleep(1)
+    game.printState()
+    print(" ")
 
     print("Final Score: %d"%(game.getScore()))
     print("Max Tile: %d"%(gt.getMaxTile()))
