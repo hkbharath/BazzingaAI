@@ -6,8 +6,6 @@ import time
 from collections import defaultdict
 
 
-T=2
-
 # Constants
 alpha=.1
 discount=.1
@@ -148,10 +146,10 @@ if __name__ == "__main__":
     ex_times = []
     max_tile = []
     num_moves = []
-    T = 2
+    T = 10
 
     tst = time.time()
-    training = 10000
+    training = 100000
     qlearning(training)
     tend = time.time()
     print("Total Q values: %d"%(len(q_values.keys())))
