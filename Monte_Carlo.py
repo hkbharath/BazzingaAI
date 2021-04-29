@@ -10,7 +10,7 @@ import time
 T=10
 
 def simulation( grid, start_move):
-    iteration=100
+    iteration=25
     score_list = []
 
     while iteration > 0:
