@@ -1,0 +1,98 @@
+I am agent 2048. The name is Monte Carlo!
+|    4 |    2 |    8 |   16 |
+|    2 | 1024 |  128 |   32 |
+|   32 |   16 |  512 |    2 |
+|    8 |    2 |  256 |    4 |
+ 
+Final Score: 15876
+Max Tile: 1024
+No. Of Moves: 925
+Time per  move: 1.34556
+|    2 |   32 |   16 |    4 |
+|  256 | 1024 |   32 |    2 |
+|    2 |   64 |  128 |    8 |
+|    8 |   32 |  512 |    2 |
+ 
+Final Score: 16272
+Max Tile: 1024
+No. Of Moves: 963
+Time per  move: 1.26954
+|    2 |    4 | 1024 |    4 |
+|    8 |   32 |  512 |    2 |
+|  128 |   16 |   64 |   32 |
+|    4 |    2 |    4 |    2 |
+ 
+Final Score: 14420
+Max Tile: 1024
+No. Of Moves: 839
+Time per  move: 1.51429
+|    2 |    4 |    8 |    2 |
+|    4 |   16 |   64 |  128 |
+| 2048 |  256 |   32 |    8 |
+|    2 |    8 |  512 |    4 |
+ 
+Final Score: 27092
+Max Tile: 2048
+No. Of Moves: 1397
+Time per  move: 1.17178
+|    4 |  128 |    2 |    4 |
+|   32 |  256 |    4 |    2 |
+|    4 |   16 | 2048 |   32 |
+|    2 |   64 |    4 |    2 |
+ 
+Final Score: 23192
+Max Tile: 2048
+No. Of Moves: 1177
+Time per  move: 1.30359
+|    2 |    4 |    8 |    2 |
+|    8 |  256 |  128 |   32 |
+|    4 |   32 |  512 |   64 |
+|   16 | 1024 |    8 |    4 |
+ 
+Final Score: 16144
+Max Tile: 1024
+No. Of Moves: 947
+Time per  move: 1.33916
+|    4 |    2 |    4 |    8 |
+|    8 |  512 |   16 |  256 |
+| 1024 |  128 |   32 |    2 |
+|    4 |   16 |   64 |    4 |
+ 
+Final Score: 16056
+Max Tile: 1024
+No. Of Moves: 938
+Time per  move: 1.30019
+|    2 |    8 |  512 |    4 |
+|   32 |  256 |   64 |    2 |
+| 2048 |   32 |    8 |  128 |
+|    4 |    2 |    4 |    2 |
+ 
+Final Score: 27180
+Max Tile: 2048
+No. Of Moves: 1408
+Time per  move: 1.22142
+|    2 |   16 |    8 |    2 |
+|    4 |  256 |  512 |    4 |
+|   32 |  128 |   32 |   64 |
+|    8 |    2 |    4 |    8 |
+ 
+Final Score: 7144
+Max Tile: 512
+No. Of Moves: 490
+Time per  move: 1.68745
+|    2 |    4 |  256 |    8 |
+|    8 |  512 |   32 |    2 |
+|   32 |   64 |    8 |    4 |
+|    4 |    2 | 2048 |    2 |
+ 
+Final Score: 26476
+Max Tile: 2048
+No. Of Moves: 1360
+Time per  move: 1.23008
+Final Analysis:
+Mean Score: 18985.200
+Max Score: 27180
+Std Deviation of Scores: 6678.494
+Average Time taken per move(sec): 1.3383
+Average No. of moves: 1044.4000
+Most common Max Tile reached: 1024

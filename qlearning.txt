@@ -1,0 +1,130 @@
+I am agent 2048. The name is q learning!
+Total Q values: 1169581
+Training Time: 2658
+up
+|    2 |    4 |   32 |    2 |
+|   16 |   32 |   64 |    4 |
+|    8 |   16 |    4 |   16 |
+|    2 |    8 |   16 |    8 |
+ 
+Final Score: 772
+Max Tile: 64
+No. Of Moves: 101
+Time per  move: 0.00168
+Random Moves: 100
+Q Table Access: 1
+right
+|    4 |   16 |    2 |    4 |
+|   16 |   32 |   64 |    8 |
+|    4 |   16 |    8 |    4 |
+|    2 |    8 |    4 |    2 |
+ 
+Final Score: 632
+Max Tile: 64
+No. Of Moves: 88
+Time per  move: 0.00185
+Random Moves: 86
+Q Table Access: 2
+up
+|    8 |   32 |    4 |    2 |
+|    4 |  128 |   32 |    4 |
+|   16 |    8 |    2 |   16 |
+|    2 |    4 |   16 |    2 |
+ 
+Final Score: 1172
+Max Tile: 128
+No. Of Moves: 127
+Time per  move: 0.00191
+Random Moves: 125
+Q Table Access: 2
+up
+|    4 |    2 |   16 |    2 |
+|    8 |  128 |   32 |    8 |
+|    4 |   64 |    8 |    2 |
+|    2 |    4 |   16 |    4 |
+ 
+Final Score: 1320
+Max Tile: 128
+No. Of Moves: 136
+Time per  move: 0.00179
+Random Moves: 134
+Q Table Access: 2
+up
+|    2 |    4 |    2 |    4 |
+|    4 |   16 |   32 |    2 |
+|    8 |   32 |    8 |   16 |
+|    4 |    8 |    4 |    2 |
+ 
+Final Score: 372
+Max Tile: 32
+No. Of Moves: 60
+Time per  move: 0.00176
+Random Moves: 56
+Q Table Access: 4
+right
+|    4 |   16 |    4 |    2 |
+|    8 |   32 |    2 |    8 |
+|    2 |   64 |   16 |    4 |
+|    4 |    2 |    8 |    2 |
+ 
+Final Score: 572
+Max Tile: 64
+No. Of Moves: 78
+Time per  move: 0.00181
+Random Moves: 76
+Q Table Access: 2
+up
+|    2 |   16 |    4 |    2 |
+|    4 |  128 |   32 |    8 |
+|   16 |    2 |   64 |    4 |
+|    2 |    4 |    8 |    2 |
+ 
+Final Score: 1312
+Max Tile: 128
+No. Of Moves: 135
+Time per  move: 0.00179
+Random Moves: 132
+Q Table Access: 3
+up
+|    2 |    4 |    2 |    8 |
+|    4 |   16 |   64 |   16 |
+|   16 |  128 |    4 |    2 |
+|    4 |   64 |    2 |    4 |
+ 
+Final Score: 1508
+Max Tile: 128
+No. Of Moves: 148
+Time per  move: 0.00181
+Random Moves: 144
+Q Table Access: 4
+right
+|    4 |    2 |    8 |    2 |
+|    8 |    4 |   32 |    8 |
+|    4 |   32 |    8 |    2 |
+|    2 |    4 |   16 |    4 |
+ 
+Final Score: 376
+Max Tile: 64
+No. Of Moves: 65
+Time per  move: 0.00195
+Random Moves: 63
+Q Table Access: 2
+up
+|    2 |    4 |    8 |    2 |
+|    8 |  128 |   32 |    4 |
+|    4 |    2 |   64 |   16 |
+|    2 |    8 |    4 |    2 |
+ 
+Final Score: 1296
+Max Tile: 128
+No. Of Moves: 135
+Time per  move: 0.00175
+Random Moves: 133
+Q Table Access: 2
+Final Analysis:
+Mean Score: 933.200
+Max Score: 1508
+Std Deviation of Scores: 432.658
+Average Time taken per move(sec): 0.0018
+Average No. of moves: 107.3000
+Most common Max Tile reached: 128
